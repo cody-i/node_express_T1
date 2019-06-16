@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<link type="text/css" rel="stylesheet" href="CSS/dailyReportPage.css"/>
+		<script type="text/javascript" src="JS/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="JS/dailyReportPage.js"></script>
+	</head>
+	<body>
+		<div id="background">
+			<div id="head">
+				user: <span id="userName"></span><br>
+			</div>
+
+			<div id="contentBody">
+				<div id="leftContent">
+					<table id="menu">
+						<tr>
+							<th colspan="2"><span>这里是菜单目录：</span></th>
+						</tr>
+						<tr>
+							<td>点击→</td>
+							<td><input id="createReport" type="button" value="新建报告" onclick="triggleType(event)"></td>
+						</tr>
+						<tr>
+							<td>点击→</td>
+							<td><input id="continueReport" type="button" value="继续报告" onclick="triggleType(event)"></td>
+						</tr>
+						<tr>
+							<td>点击→</td>
+							<td><input id="searchButton" type="button" value="报告查询" onclick="triggleType(event)"></td>
+						</tr>
+						<tr>
+							<td>点击→</td>
+							<td><input id="overwriteButton" type="button" value="报告修正" onclick="triggleType(event)"></td>
+						</tr>
+					</table>
+				</div>
+				<div id="rightContent">
+					<span>这里是运行信息显示：</span>
+					<table id="detailInfo">
+						<tr>
+							<td>作业番号</td>
+							<td><input id="workId" type="text"></td>
+						</tr>
+						<tr>
+							<td>作业内容</td>
+							<td><input id="workContent" type="text"></td>
+						</tr>
+						<tr>
+							<td>担当者</td>
+							<td><input id="workContent" type="text"></td>
+						</tr>
+						<tr>
+							<td><input type="button" value="新建报告" onclick="newWork()"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div id="foot">
+				这里是底部
+			</div>
+
+			<!--<div id="typeSelect">-->
+				<!--<input id="reportButton" type="button" value="报告作成" onclick="triggleType(event)">-->
+				<!--<input id="searchButton" type="button" value="报告查询" onclick="triggleType(event)">-->
+				<!--<input id="overwriteButton" type="button" value="报告修正" onclick="triggleType(event)"><br>-->
+				<!--<span>======================================</span>-->
+			<!--</div>-->
+			<!---->
+			<!--<div id="type">-->
+				<!--<div id="reportModule">-->
+					<!--<input type="button" value="继续上次作业" onclick="getWork()">-->
+					<!--<input type="button" value="新开作业" onclick="createNewWork()">-->
+					<!--<table id="workDetail" border="1" style="display:none">-->
+						<!--&lt;!&ndash;<tr>-->
+							<!--<th>创建时间</th>-->
+							<!--<th>担当者</th>-->
+							<!--<th>作业番号</th>-->
+							<!--<th>作业内容</th>-->
+							<!--<th>预估工数</th>-->
+							<!--<th>已用工数</th>-->
+							<!--<th>总件数</th>-->
+							<!--<th>已完成件数</th>-->
+							<!--<th>实际开始时间</th>-->
+							<!--<th>实际结束时间</th>-->
+							<!--<th>作业状态</th>-->
+							<!--<th>今天进度</th>-->
+							<!--<th>用时（天）</th>-->
+							<!--<th>已完成百分比</th>-->
+						<!--</tr>&ndash;&gt;-->
+					<!--</table>-->
+					<!--<input type="button" value="提交" onclick="submitWork()">-->
+				<!--</div>-->
+
+				<!--<div id="searchModule" >-->
+					<!---->
+					<!--<input type="button" value = "submit" onclick="doSearch()">-->
+				<!--</div>-->
+				<!---->
+				<!---->
+			<!--</div>-->
+			
+		</div>
+
+
+		<!--<div id="popUp" class="hide">-->
+			<!--<div class="black_overlay">-->
+
+			<!--</div>-->
+			<!--<div class="white_content_small">-->
+				<!--<span>input your work id.</span>-->
+				<!--<input type="text" id="workId">-->
+				<!--<input type="button" value="Get" onclick="getWorkListByWorkIdAndUserName()">-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<!--主js处理开始-->
+		<script type="text/javascript">
+			// 取得用户名
+//			setUserName(document.getElementById('userName'));
+
+			// 定义menu具体对象
+			var typeMenu = [];
+			typeMenu.push({
+				'objId':'reportModule',
+				'obj':document.getElementById('reportModule')
+			});
+			typeMenu.push({
+				'objId':'searchModule',
+				'obj':document.getElementById('searchModule')
+			});
+
+			// 默认设置【报告作成】为首页显示
+			for (var i = 0; i < typeMenu.length; i++) {
+					 // code to be executed
+					 typeMenu[i].obj.style.display = 'none';
+			}
+			document.getElementById('reportModule').style.display = '';
+
+		</script>
+		
+		<script type="text/javascript">
+			// 报告作成相关
+			function getWork(){
+				/*
+				var blackOverlay = document.createElement("div");
+				blackOverlay.setAttribute("class", "black_overlay");
+				//background.appendChild(obj);
+				popUp.appendChild(blackOverlay);
+
+				blackOverlay.style.width = document.body.scrollWidth;
+				blackOverlay.style.height = document.body.scrollHeight;
+
+				var whileContent = document.createElement("div");
+				whileContent.setAttribute("class", "white_content_small");
+				popUp.appendChild(whileContent);
+				
+				whileContent.innerHTML = "input your work id.<br>";
+				
+				var objInput = document.createElement("input");
+				objInput.setAttribute("id", "workId");
+				objInput.setAttribute("type", "text");
+				whileContent.appendChild(objInput);
+				
+				var objOKButton = document.createElement("input");
+				objOKButton.setAttribute("type", "button");
+				objOKButton.setAttribute("value", "Get");
+				whileContent.appendChild(objOKButton);
+				objOKButton.onclick = test;
+				*/
+				popUp.className= '';		// 显示
+			}
+
+			
+			function submitWork(){
+				
+				// 检查各个值
+				var table = document.getElementById("workDetail");
+				if(table.children.length != 2){
+					alert("还未选择工作项。");
+					return;
+				}
+				if(table.children.length > 2){
+					alert("一次只能提交一项作业。你选了超过一项的作业了。");
+					return;
+				}
+				
+				// 获取作业列表数据，从table的第2项开始获取
+				/*Submit作业开始，
+					- tbl_workdetail需要数据：
+						- 创建时间		-	主键
+						- 担当者
+						- 作业ID
+						- 作业内容
+						- 当天完成量
+						- 用时（天）
+					- tbl_worklist需要数据：
+						- 创建时间		-	主键
+						- 已用工数
+						- 已完成件数
+						- 实际作业开始时间
+						- 实际终了开始时间
+						- 作业状态
+				*/
+				var trList = table.children[1];			// 取得tr
+				var createTime = trList.cells[0].textContent;
+				var owner = trList.cells[1].textContent;
+				var workId = trList.cells[2].textContent;
+				var workTitle = trList.cells[3].textContent;
+				//4
+				var usedMD = Number(trList.cells[5].textContent);
+				//6
+				var completedNum = Number(trList.cells[7].textContent);
+				var actualStartDate = trList.cells[8].textContent;
+				var actualEndDate = trList.cells[9].textContent;
+				var selectTagObj = trList.cells[10].children[0]
+				var workStatus = selectTagObj[selectTagObj.selectedIndex].textContent;
+				var inputTagObj = trList.cells[11].children[0];
+				var todayCompleted = Number(inputTagObj.value);
+				inputTagObj = trList.cells[12].children[0];
+				var usingTime = Number(inputTagObj.value);
+				
+				if(todayCompleted == "" || usingTime == ""){
+					alert("进度或用时未填写。");
+					return;
+				}
+				// 处理实际开始/结束时间
+				if(workStatus == "开始对应"){
+					actualStartDate = new Date().format("yyyy-MM-dd");
+					actualEndDate = "";
+				}else if(workStatus == "对应完了"){
+					actualEndDate = new Date().format("yyyy-MM-dd");
+				}
+				// 处理【已用工数】
+				usedMD += usingTime;
+				// 处理【已完成件数】
+				completedNum += todayCompleted;
+				
+				// 发送请求
+				var param = {
+					createTime:createTime,
+					owner:owner,
+					workId:workId,
+					workTitle:workTitle,
+					usedMD:usedMD,
+					completedNum:completedNum,
+					actualStartDate:actualStartDate,
+					actualEndDate:actualEndDate,
+					workStatus:workStatus,
+					todayCompleted:todayCompleted,
+					usingTime:usingTime
+				}
+				console.log(param);
+				var url = "http://" + webConfig.host + ":" + webConfig.port + "/submitWork";
+				$.ajax({
+					type:"POST",
+					url:url,
+					data:param,
+					dataType:"json",
+					success:function(res){
+						alert("提交作业成功");
+						workDetail.innerHTML = "";					// 完成提交，清空面板内容
+						workDetail.style.display = "none";
+						
+					},
+					error:function(e){
+							alert("fail to connect server");
+					}
+				});
+			}
+			
+			function createNewWork(){
+				alert("createNewWork");
+			}
+			
+		</script>
+		
+		<script>
+			// 报告查询相关
+			function cancelSelectWorkIdPopMenu(){
+				document.getElementById("popUp").innerHTML = "";				// make it invisible
+			}
+			
+			function doSearch(){
+				alert("submit");
+			}
+			
+			function getUnfinishedWork(){
+				alert("getUnfinishedWork");
+			}	
+		</script>
+
+	</body>
+</html>

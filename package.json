@@ -1,0 +1,24 @@
+{
+  "name": "li-pro1",
+  "version": "1.0.0",
+  "description": "this is for express pro1",
+  "main": "app.js",
+  "dependencies": {
+    "co": "^4.6.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
+    "mysql": "^2.16.0",
+    "thunkify": "^2.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lirj"
+  ],
+  "author": "lirj",
+  "license": "ISC"
+}

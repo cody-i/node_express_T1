@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style type="text/css">
+			#background{
+				background-color: #EEEED1;
+				width:500px;
+				height:300px;
+				border: red solid 1px;
+			}
+		</style>
+		<script type="text/javascript" src="JS/jquery-1.10.2.min.js"></script>
+		<!--<script type="text/javascript" src="./DBConfig.js"></script>-->
+	</head>
+	<body>
+		<div id="background">
+			<div style="text-align:center;">Login</div><br>
+			username: <input type="text" value="input your name here." id="userName"><br>
+			password: <input type="password" id="password"><br>
+			<input type="button" value="Login" onclick="doLogin()"/><br><br>
+			<a id="jumpToRegister" target="_self">if you have no account, click here to register. >>>（哥门儿还没做）</a>
+		</div>
+		<!--<input type="button" value="测试按钮-更新数据库操作" onclick="testUpdate()"/>-->
+		<script type="text/javascript">
+			const host = 'localhost';
+			const router = "online";
+			const port = '3000';
+
+			function doLogin(){
+				// check input username and PDW
+				if(userName.value == "" || password.value == ""){
+					alert("userName or password is empty. Please fill them up.");
+					return;
+				}
+				// do ajax
+				var url = `http://${host}:${port}/${router}/login`;
+				var userInfo = {};
+				
+				userInfo.userName = userName.value;
+				userInfo.password = password.value;
+				$.ajax({
+					type:"POST",
+					url:url,
+					data:userInfo,
+					dataType:"json",
+					success:function(res){
+						// check return code
+						if (res.returnCode == null || res.returnCode < 1) {
+							alert("登陆失败");
+						}else{
+							alert("登陆成功，欢迎进入");
+							location.href = './dailyReportPage.html';
+						}
+					},
+					error:function(e){
+						alert("fail to connect server");
+					}
+				});
+			}
+
+		</script>
+	</body>
+</html>
