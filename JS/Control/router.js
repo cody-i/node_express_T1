@@ -47,4 +47,17 @@ router.post('/getWorkListByWorkIdAndUserName', function(req, res){
 	dailyReportPage.getWorkListByWorkIdAndUserName(req, res);
 });
 
+/*下载 - 文件流 */
+router.get('/download', function(req, res){
+	var path = `${common.getRootPath()}\\public\\1.txt`;
+    res.setHeader('Content-type', 'application/octet-stream');
+    res.setHeader('Content-Disposition', 'attachment;filename=aaa.txt');    // 'aaa.txt' can be customized.
+    var fileStream = fs.createReadStream(path);
+    fileStream.on('data', function (data) {
+        res.write(data, 'binary');
+    });
+    fileStream.on('end', function () {
+        res.end();
+    });
+});
 module.exports = router;
